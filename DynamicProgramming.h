@@ -19,7 +19,14 @@ long long int dynamicFactorial(long long int n){
     }
     return factorailArray[n];
 }
-
-
+/*
+int main(){
+    long long int input;
+    cout << "Enter N: \n";
+    cin >> input;
+    cout << "Overlapping Sub Problem Factorial of " << input << " is: " << overlappingFactorial(input) << endl;
+    cout << "Dynamic Programming Factorial of " << input << " is: " << dynamicFactorial(input) << endl;
+}
+*/
 
 #endif //ALGORITHMS_DYNAMICPROGRAMMING_H
