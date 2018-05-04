@@ -35,7 +35,7 @@ node insertNode(node root, int info) {
     if (root == nullptr) {
         return item;
     }
-    node cur = root, prev;
+    node cur = root, prev = nullptr;
     while (cur != nullptr) {
         prev = cur;
         if (cur->info > info) {
@@ -57,7 +57,7 @@ node deleteNode(node root, int info) {
         printf("Empty Tree\n");
         return nullptr;
     }
-    node cur, parent= nullptr;
+    node cur, parent = nullptr;
     cur = root;
     while (cur != nullptr) {
         if (cur->info == info) {
@@ -91,7 +91,7 @@ node deleteNode(node root, int info) {
     if (parent == nullptr) {
         free(cur);
         return q;
-    }else{
+    } else {
         if (parent->info > cur->info) {
             parent->left = q;
         } else {
@@ -151,9 +151,9 @@ void iterativeInorder(node root) {
         } else {
             if (!nodeStack.empty()) {
                 node temp = nodeStack.top();
-                nodeStack.pop();
                 printf("%d ", temp->info);
-                cur = cur->right;
+                nodeStack.pop();
+                cur = temp->right;
             } else {
                 done = true;
             }
@@ -183,10 +183,11 @@ void iterativePostorder(node root) {
 
     while (!nodeStack1.empty()) {
         node temp = nodeStack1.top();
-        printf("%d ", temp->info);
         nodeStack1.pop();
+        printf("%d ", temp->info);
+
     }
-    printf("%d\n");
+    printf("\n");
 }
 
 int max(int a, int b) {
@@ -222,6 +223,7 @@ void levelOrderTraversal(node root) {
         temp_node = nodeQueue.front();
         nodeQueue.pop();
     }
+    printf("\n");
 }
 
 void printNodesInLevel(node root, int level, bool *flag) {

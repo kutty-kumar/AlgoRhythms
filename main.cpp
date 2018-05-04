@@ -3,6 +3,7 @@
 #include "Sorting.h"
 #include "Utils.h"
 #include "BinaryTrees.h"
+#include "Searching.h"
 
 using namespace std;
 node root;
@@ -14,12 +15,16 @@ int main() {
     cout << "Overlapping Sub Problem Factorial of " << input << " is: " << overlappingFactorial(input) << endl;
     cout << "Dynamic Programming Factorial of " << input << " is: " << dynamicFactorial(input) << endl;
     int input1[]{9, 2, 3, 4, 5};
-    int len = sizeof(input1) / sizeof(int);
+    int input2[]{2,3,4,5,6,10};
+    int len2 = sizeof(input2) / sizeof(int);
+    int len1 = sizeof(input1) / sizeof(int);
+    cout << "Linear search for 4: " << linearSearch(input1,len1,4) << endl;
+    cout << "Binary Search for 10: "<< binarySearch(input2,0,len2,10) << endl;
     cout << "Before HeapSort Sort\n";
-    printArray(input1, len);
-    heapSort(input1, len);
+    printArray(input1, len1);
+    heapSort(input1, len1);
     cout << "After HeapSort Sort\n";
-    printArray(input1, len);
+    printArray(input1, len1);
     int choice;
     while (1) {
         cout << "Please select an option: \n";
