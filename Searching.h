@@ -5,7 +5,9 @@
 #ifndef ALGORHYTHMS_SEARCHING_H
 #define ALGORHYTHMS_SEARCHING_H
 
-int linearSearch(const int *input,int len,int x){
+#include <climits>
+
+int linearSearch(const int *input, int len, int x){
     for(int i=0;i<len;i++){
         if(input[i] == x){
             return i;
@@ -31,15 +33,89 @@ int binarySearch(const int *input,int low,int high,int x){
 }
 
 int findMissingInteger(const int *input,int len){
-    int xor1 = 1,xor2 = input[0];
-    for(int i=2;i<len+1;i++){
-        xor1 = xor1 ^ i;
-    }
+    int i;
+    int x1 = input[0]; /* For xor of all the elements in array */
+    int x2 = 1; /* For xor of all the elements from 1 to n+1 */
 
-    for(int i=1;i<len;i++){
-        xor2 = xor2 ^ input[i];
+    for (i = 1; i< len; i++)
+        x1 = x1^input[i];
+
+    for ( i = 2; i <= len+1; i++)
+        x2 = x2^i;
+
+    return (x1^x2);
+}
+
+// 4 5 6 7 8 1 2 3
+
+int findPivot(int *input,int low,int high){
+    if(low > high){
+        return -1;
     }
-    return xor1 ^ xor2;
+    if(low == high){
+        return low;
+    }
+    int mid = (low + high)/2;
+    if(mid+1 < high && input[mid] > input[mid+1]){
+        return mid;
+    }
+    if(mid-1 > low && input[mid-1] > input[mid]){
+        return mid-1;
+    }
+    if(input[mid] < input[mid+1] && input[mid] > input[mid-1]){
+        return findPivot(input,low,mid-1);
+    }else{
+        return findPivot(input,mid+1,high);
+    }
+}
+
+int searchSortedRotatedArray(int *input,int low,int high,int key){
+    int pivot = findPivot(input,low,high);
+    if(pivot == -1){
+        return binarySearch(input,low,high,key);
+    }
+    if(input[pivot] == key){
+        return pivot;
+    }
+    if(input[0] <= key){
+        return binarySearch(input,low,pivot-1,key);
+    }else{
+        return binarySearch(input,pivot+1,high,key);
+    }
+}
+
+
+std::pair<int, int> elementsSumCloseToZ0(int *input, int len) {
+    quickSort(input, 0, len);
+    int l = 0, r = len - 1, sum, min_sum = INT_MAX, min_l = l, min_r = r;
+    while (l < r) {
+        sum = input[l] + input[r];
+        if (abs(sum) < abs(min_sum)) {
+            min_sum = sum;
+            min_l = l;
+            min_r = r;
+        }
+        if (sum < 0) {
+            l++;
+        } else {
+            r--;
+        }
+    }
+    return std::make_pair(min_l, min_r);
+}
+
+
+std::pair<int,int> find2Smallest(int *input, int len) {
+    int first,second=INT_MAX;
+    for (int i = 0; i < len; i++) {
+        if(input[i] < first){
+            second = first;
+            first = input[i];
+        }else if(input[i] < second && input[i] > first){
+            second = input[i];
+        }
+    }
+    return std::make_pair(first,second);
 }
 
 /*
